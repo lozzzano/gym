@@ -19,51 +19,63 @@ export default function Dashboard() {
 
     return (
         <AuthenticatedLayout
-            header={<h2 className="text-xl font-semibold leading-tight text-gray-800">Dashboard</h2>}
+            header={<h2 className="text-gray-800 text-xl font-semibold leading-tight">Dashboard</h2>}
         >
             <Head title="Dashboard" />
 
-            <div className="py-12 m-4">
-                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                    <div className="p-6 bg-white rounded-lg shadow">
+            <div className="m-4 py-12">
+                <div className="grid grid-cols-1 gap-4 lg:grid-cols-4 lg:px-8 max-w-7xl md:grid-cols-2 mx-auto sm:px-6">
+                    <div className="bg-white p-6 rounded-lg shadow">
                         <h3 className="text-lg font-semibold">Total Clientes</h3>
                         <p className="text-3xl">{stats.totalClients}</p>
                     </div>
-                    <div className="p-6 bg-white rounded-lg shadow">
+                    <div className="bg-white p-6 rounded-lg shadow">
                         <h3 className="text-lg font-semibold">Membresías Activas</h3>
                         <p className="text-3xl">{stats.activeMemberships}</p>
                     </div>
-                    <div className="p-6 bg-white rounded-lg shadow">
+                    <div className="bg-white p-6 rounded-lg shadow">
                         <h3 className="text-lg font-semibold">Membresías Expiradas</h3>
                         <p className="text-3xl">{stats.expiredMemberships}</p>
                     </div>
-                    <div className="p-6 bg-white rounded-lg shadow">
+                    <div className="bg-white p-6 rounded-lg shadow">
                         <h3 className="text-lg font-semibold">Ingresos Totales</h3>
                         <p className="text-3xl">${stats.totalRevenue}</p>
                     </div>
                 </div>
             </div>
 
-            <div className="py-4 m-6">
+            <div className="m-6 py-4">
                 <h3 className="text-lg font-semibold">Accesos Rápidos</h3>
-                <div className="flex flex-wrap gap-4 mt-4 justify-center">
+                <div className="flex flex-wrap justify-center gap-4 mt-4">
                     <a
-                        href="/clients"
-                        className="px-4 py-2 bg-blue-500 text-white rounded-lg shadow min-w-[150px] text-center"
+                        href="/dashboard/clients"
+                        className="bg-blue-500 rounded-lg shadow text-center text-white min-w-[150px] px-4 py-2"
                     >
                         Clientes
                     </a>
                     <a
-                        href="/products"
-                        className="px-4 py-2 bg-green-500 text-white rounded-lg shadow min-w-[150px] text-center"
+                        href="/dashboard/products"
+                        className="bg-green-500 rounded-lg shadow text-center text-white min-w-[150px] px-4 py-2"
                     >
                         Productos
                     </a>
                     <a
-                        href="/reports"
-                        className="px-4 py-2 bg-purple-500 text-white rounded-lg shadow min-w-[150px] text-center"
+                        href="/dashboard/reports"
+                        className="bg-purple-500 rounded-lg shadow text-center text-white min-w-[150px] px-4 py-2"
                     >
                         Ver Reportes
+                    </a>
+                    <a
+                        href="/dashboard/memberships"
+                        className="bg-yellow-500 rounded-lg shadow text-center text-white min-w-[150px] px-4 py-2"
+                    >
+                        Ver Membresías
+                    </a>
+                    <a
+                        href="/dashboard/payments"
+                        className="bg-red-500 rounded-lg shadow text-center text-white min-w-[150px] px-4 py-2"
+                    >
+                        Ver Pagos
                     </a>
                 </div>
             </div>

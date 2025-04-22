@@ -19,6 +19,7 @@ return new class extends Migration
             $table->date('birthdate'); // Fecha de nacimiento
             $table->string('address', 100)->nullable(); // Dirección opcional
             $table->string('profile_picture')->nullable(); // Foto de perfil (ruta)
+            $table->text('face_encoding')->nullable(); 
             $table->enum('status', ['active', 'inactive'])->default('active'); // Estado general del cliente
             $table->timestamps(); // created_at, updated_at
             $table->softDeletes(); // Eliminación lógica

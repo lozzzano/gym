@@ -24,12 +24,62 @@ export default function AuthenticatedLayout({ header, children }) {
                             </div>
 
                             <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                                <NavLink
-                                    href={route('dashboard')}
-                                    active={route().current('dashboard')}
-                                >
-                                    Inicio
-                                </NavLink>
+                            <NavLink
+                                href={route('dashboard')}
+                                active={route().current('dashboard')}
+                            >
+                                Inicio
+                            </NavLink>
+
+                            <NavLink
+                                href="/dashboard/clients"
+                                active={route().current('clients.index')}
+                            >
+                                Clientes
+                            </NavLink>
+
+                            <NavLink
+                                href="/dashboard/access-logs"
+                                active={route().current('access.logs')}
+                            >
+                                AutoAcceso
+                            </NavLink>
+
+                            <NavLink
+                                href="/dashboard/products"
+                                active={route().current('products.index')}
+                            >
+                                Productos
+                            </NavLink>
+
+                            <NavLink
+                                href="/dashboard/products/qr"
+                                active={route().current('products.qr')}
+                            >
+                                QR Productos
+                            </NavLink>
+
+                            <NavLink
+                                href="/dashboard/reports"
+                                active={route().current('reports.index')}
+                            >
+                                Reportes
+                            </NavLink>
+
+                            <NavLink
+                                href="/dashboard/memberships"
+                                active={route().current('memberships.index')}
+                            >
+                                Membresías
+                            </NavLink>
+
+                            <NavLink
+                                href="/dashboard/payments"
+                                active={route().current('payments.index')}
+                            >
+                                Pagos
+                            </NavLink>
+
                             </div>
                         </div>
 
@@ -134,6 +184,57 @@ export default function AuthenticatedLayout({ header, children }) {
                         >
                             Inicio
                         </ResponsiveNavLink>
+
+                        <ResponsiveNavLink
+                            href="/dashboard/clients"
+                            active={route().current('clients.index')}
+                        >
+                            Clientes
+                        </ResponsiveNavLink>
+
+                        <ResponsiveNavLink
+                            href="/dashboard/access-logs"
+                            active={route().current('access.logs')}
+                        >
+                            AutoAcceso
+                        </ResponsiveNavLink>
+
+
+                        <ResponsiveNavLink
+                            href="/dashboard/products"
+                            active={route().current('products.index')}
+                        >
+                            Productos
+                        </ResponsiveNavLink>
+
+                        <ResponsiveNavLink
+                            href="/dashboard/products/qr"
+                            active={route().current('products.qr')}
+                        >
+                            QR Productos
+                        </ResponsiveNavLink>
+
+                        <ResponsiveNavLink
+                            href="/dashboard/reports"
+                            active={route().current('reports.index')}
+                        >
+                            Reportes
+                        </ResponsiveNavLink>
+
+                        <ResponsiveNavLink
+                            href="/dashboard/memberships"
+                            active={route().current('memberships.index')}
+                        >
+                            Membresías
+                        </ResponsiveNavLink>
+
+                        <ResponsiveNavLink
+                            href="/dashboard/payments"
+                            active={route().current('payments.index')}
+                        >
+                            Pagos
+                        </ResponsiveNavLink>
+
                     </div>
 
                     <div className="border-t border-gray-200 pb-1 pt-4">

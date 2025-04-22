@@ -15,7 +15,9 @@ export default function ClientForm({ client, modalType, onSubmit }) {
         <form onSubmit={handleSubmit} className="p-4 border rounded bg-light shadow">
 
             {/* Título del formulario */}
-            <h4 className="text-primary mb-3">{modalType === "crear" ? "Crear Cliente" : "Actualizar Cliente"}</h4>
+            <h4 className="text-primary mb-3">
+                {modalType && modalType === "crear" ? "Crear Cliente" : "Actualizar Cliente"}
+            </h4>
             <hr />
 
             {/* Campos del formulario */}

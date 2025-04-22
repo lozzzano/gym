@@ -1,12 +1,32 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 export default function ProductForm({ product = {}, onSubmit, modalType }) {
     const [formData, setFormData] = useState({
-        name: product.name || "",
-        description: product.description || "", // Agregar descripción
-        price: product.price || "",
-        stock: product.stock || "",
+        name: "",
+        description: "",
+        price: "",
+        stock: "",
     });
+
+    // Efecto para actualizar los datos cuando `product` cambia
+    useEffect(() => {
+        if (modalType === "editar" && product) {
+            setFormData({
+                name: product.name || "",
+                description: product.description || "",
+                price: product.price || "",
+                stock: product.stock || "",
+            });
+        } else {
+            // Si es "crear", limpiar el formulario
+            setFormData({
+                name: "",
+                description: "",
+                price: "",
+                stock: "",
+            });
+        }
+    }, [modalType, product]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;

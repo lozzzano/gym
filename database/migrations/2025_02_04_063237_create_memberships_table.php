@@ -12,15 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('memberships', function (Blueprint $table) {
-            $table->id(); // ID único
-            $table->foreignId('client_id')->constrained('clients')->onDelete('cascade'); // Relación con clientes
-            $table->string('type'); // Tipo de membresía (Ejemplo: mensual, anual)
-            $table->date('start_date'); // Fecha de inicio
-            $table->date('end_date'); // Fecha de término
-            $table->enum('status', ['active', 'expired', 'suspended'])->default('active'); // Estado
-            $table->decimal('price', 10, 2); // Precio de la membresía
-            $table->timestamps(); // created_at, updated_at
-        });
+            $table->id();
+            $table->foreignId('client_id')->constrained('clients')->onDelete('cascade');
+            $table->foreignId('membership_type_id')->constrained('membership_types')->onDelete('cascade');
+            $table->date('start_date');
+            $table->date('end_date');
+            $table->enum('status', ['active', 'expired', 'suspended'])->default('suspended');
+            $table->decimal('price', 10, 2)->nullable(); // Puede ser personalizado o usar el del tipo
+            $table->timestamps();
+        });        
     }
 
     /**

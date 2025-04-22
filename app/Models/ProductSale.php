@@ -17,4 +17,12 @@ class ProductSale extends Model
         'paid',
     ];
 
+    public function membership() {
+        return $this->belongsTo(Membership::class);
+    }
+    
+    public function product() {
+        return $this->belongsTo(Product::class);
+    }    
+
 }

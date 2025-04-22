@@ -12,6 +12,7 @@ class AccessLog extends Model
     protected $fillable = [
         'client_id',
         'access_time',
+        'checkout',
         'status',
         'reason',
         'created_at',

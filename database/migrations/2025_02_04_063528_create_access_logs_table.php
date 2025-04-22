@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('client_id')->constrained('clients')->onDelete('cascade'); // Relación con clientes
             $table->timestamp('access_time'); // Fecha y hora de acceso
+            $table->timestamp('checckout')->nullable(); // Fecha y hora de salida
             $table->enum('status', ['allowed', 'denied'])->default('allowed'); // Permitido o denegado
             $table->string('reason')->nullable(); // Razón si fue denegado
             $table->timestamps();

@@ -14,7 +14,8 @@ class ClientController extends Controller
     public function index()
     {
         try {
-            $clients = Client::all();
+            $clients = Client::with('membership', 'payments')->get();
+
             return Inertia::render('Clients/Index', [
                 'clients' => $clients, 
             ]);
@@ -29,7 +30,8 @@ class ClientController extends Controller
     public function get()
     {
         try{
-            $clients = Client::all();
+            $clients = Client::with('membership', 'payments')->paginate(12);
+
             return response()->json($clients, 200);
         }catch(\Exception $e){
             return response()->json([

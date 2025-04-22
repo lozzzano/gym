@@ -13,13 +13,51 @@ class ProductController extends Controller
     public function index()
     {
         try {
-            $products = Product::with('category')->get();
+            $products = Product::with('category')->paginate(12);
             return Inertia::render('Products/Index', [
                 'products' => $products, 
             ]);
         } catch (\Exception $e) {
             return response()->json(['message' => 'Error al obtener los productos.', 'error' => $e->getMessage()], 500);
         }
+    }
+
+    public function showQrList()
+    {
+        $products = Product::paginate(20);
+        return Inertia::render('Products/QrList', [
+            'products' => $products,
+        ]);
+    }    
+
+    public function scan($codigo)
+    {
+        $product = Product::where('qr_code', $codigo)->first();
+
+        if (!$product) {
+            return response()->json(['error' => 'Producto no encontrado'], 404);
+        }
+
+        return response()->json([
+            'id' => $product->id,
+            'name' => $product->name,
+            'description' => $product->description,
+            'price' => $product->price,
+        ]);
+    }
+
+    public function get()
+    {
+        try{
+            $products = Product::with('category')->paginate(12);
+            return response()->json($products, 200);
+        }catch(\Exception $e){
+            return response()->json([
+                'error' => 'Error al obtener los productos.',
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+
     }
 
     // Crear un nuevo producto
