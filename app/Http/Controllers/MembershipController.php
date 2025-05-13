@@ -63,7 +63,7 @@ class MembershipController extends Controller
                 'client_id' => $request->client_id,
                 'membership_type_id' => $request->membership_type_id,
                 'start_date' => $request->start_date,
-                'end_date' => Carbon::parse($request->start_date)->addMonths($membershipType->duration), // Calcula la fecha de finalización
+                'end_date' => Carbon::parse($request->start_date)->addMonths($membershipType->duration),
                 'status' => $request->status,
                 'price' => $membershipType->price, // Usa el precio del tipo de membresía
             ]);

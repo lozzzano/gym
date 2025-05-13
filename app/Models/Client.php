@@ -28,18 +28,32 @@ class Client extends Model
         return $this->hasMany(Payment::class);
     }
 
+    public function accessLogs()
+    {
+        return $this->hasMany(AccessLog::class);
+    }
+
     public function getAccessStatusAttribute()
     {
-        if (!$this->membership || !$this->membership->real_status != "active") {
-            return ['allowed' => false, 'reason' => 'Membresía inactiva'];
+        $status = $this->membership->real_status ?? null;
+
+        if ($status !== 'active') {
+            $mensaje = match ($status) {
+                'pending'   => 'Membresía aún no inicia',
+                'expired'   => 'Membresía expirada',
+                'suspended' => 'Membresía suspendida',
+                default     => 'Membresía no válida'
+            };
+
+            return ['allowed' => false, 'reason' => $mensaje];
         }
 
+        // Verificar si tiene una entrada sin salida
         if ($this->accessLogs()->whereNull('checkout')->exists()) {
             return ['allowed' => true, 'reason' => 'Debes registrar tus salidas'];
         }
 
         return ['allowed' => true, 'reason' => 'Acceso permitido'];
     }
-
 
 }

@@ -188,6 +188,7 @@ export default function Index({ memberships: initialMemberships }) {
                     <MembershipTypeTable
                         membershipTypes={membershipTypes}
                         onEdit={(t) => handleOpenMembershipTypeModal("editar", t)}
+                        onDelete={handleConfirmDeleteMembershipType}
                     />
                 ) : (
                     <p className="text-center text-gray-500">No hay tipos de membresías registrados.</p>

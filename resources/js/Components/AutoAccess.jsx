@@ -50,7 +50,7 @@ const AutoAccess = () => {
       try {
         cooldownRef.current = true;
         setTimeout(() => {
-            cooldownRef.current = false;
+          cooldownRef.current = false;
         }, 10000);
         const response = await axios.post('/facial-recognition-auto', formData);
         const data = response.data;
@@ -73,7 +73,22 @@ const AutoAccess = () => {
 
       } catch (error) {
         console.error('No reconocido o error:', error);
-      } finally {
+
+        const data = error.response?.data;
+
+        if (data && data.tipo === 'denegado') {
+          Swal.fire({
+            icon: 'error',
+            title: '🚫 Acceso denegado',
+            text: `${data.mensaje}\nCliente: ${data.name || 'Desconocido'}`,
+            timer: 5000,
+            toast: false,
+            position: 'center',
+            showConfirmButton: false
+          });
+        }
+      }
+      finally {
         setLoading(false);
       }
     }, 'image/jpeg');
@@ -87,9 +102,8 @@ const AutoAccess = () => {
 
       <button
         onClick={camaraActiva ? apagarCamara : iniciarCamara}
-        className={`px-4 py-2 rounded text-white font-semibold ${
-          camaraActiva ? 'bg-red-600 hover:bg-red-700' : 'bg-blue-600 hover:bg-blue-700'
-        }`}
+        className={`px-4 py-2 rounded text-white font-semibold ${camaraActiva ? 'bg-red-600 hover:bg-red-700' : 'bg-blue-600 hover:bg-blue-700'
+          }`}
       >
         {camaraActiva ? 'Detener cámara' : 'Iniciar cámara'}
       </button>

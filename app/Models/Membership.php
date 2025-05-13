@@ -39,12 +39,12 @@ class Membership extends Model
     public function getMustPayAttribute()
     {
         $membershipPrice = 0;
-        // Precio base de la membresía
-        if($this->status === 'expired'){
+
+        // ¿Debe pagar membresía?
+        if ($this->payments()->sum('amount') < $this->price) {
             $membershipPrice = $this->price;
         }
 
-        // Total de productos no pagados relacionados a esta membresía
         $unpaidProductsTotal = $this->productSales()
             ->where('paid', false)
             ->sum('total');
@@ -55,10 +55,16 @@ class Membership extends Model
     public function getRealStatusAttribute()
     {
         if ($this->status === 'suspended') {
-            return 'suspended'; // se respeta manualmente
+            return 'suspended';
         }
 
-        if (now()->greaterThan($this->end_date)) {
+        $now = now();
+
+        if ($now->lt($this->start_date)) {
+            return 'pending'; // aún no comienza
+        }
+
+        if ($now->gt($this->end_date)) {
             return 'expired';
         }
 

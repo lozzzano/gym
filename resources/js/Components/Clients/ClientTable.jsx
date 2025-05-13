@@ -46,7 +46,7 @@ export default function ClientTable({ clients, onEdit, onDelete, onConfirmDelete
                                     }}
                                 >
                                     <span className="hidden md:inline">
-                                        {client.membership ? "Ver Membresía" : "Membresía"}
+                                        {client.membership ? "Ver Membresía" : "Asignar Membresía"}
                                     </span>
                                 </button>
 

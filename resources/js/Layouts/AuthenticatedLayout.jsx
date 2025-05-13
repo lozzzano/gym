@@ -46,6 +46,13 @@ export default function AuthenticatedLayout({ header, children }) {
                             </NavLink>
 
                             <NavLink
+                                href="/dashboard/products/scanner"
+                                active={route().current('products.scanner')}
+                            >
+                                AutoCompra
+                            </NavLink>
+
+                            <NavLink
                                 href="/dashboard/products"
                                 active={route().current('products.index')}
                             >
@@ -197,6 +204,13 @@ export default function AuthenticatedLayout({ header, children }) {
                             active={route().current('access.logs')}
                         >
                             AutoAcceso
+                        </ResponsiveNavLink>
+
+                        <ResponsiveNavLink
+                                href="/dashboard/products/scanner"
+                                active={route().current('products.scanner')}
+                        >
+                            AutoCompra
                         </ResponsiveNavLink>
 
 

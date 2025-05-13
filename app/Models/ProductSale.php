@@ -17,6 +17,27 @@ class ProductSale extends Model
         'paid',
     ];
 
+    protected static function booted()
+    {
+        static::created(function ($productSale) {
+            $product = $productSale->product;
+
+            if ($product && $product->stock !== null) {
+                $product->stock -= $productSale->quantity;
+                $product->save();
+            }
+        });
+
+        static::creating(function ($productSale) {
+            $product = $productSale->product;
+        
+            if ($product && $product->stock < $productSale->quantity) {
+                throw new \Exception("No hay suficiente stock para el producto: {$product->name}");
+            }
+        });
+        
+    }
+
     public function membership() {
         return $this->belongsTo(Membership::class);
     }

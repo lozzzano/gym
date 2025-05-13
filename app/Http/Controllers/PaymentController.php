@@ -70,10 +70,10 @@ class PaymentController extends Controller
             'image'           => $imagePath ? str_replace('public/', 'storage/', $imagePath) : null,
         ]);
     
-        // Marcar ventas como pagadas
-        //foreach ($pendingSales as $sale) {
-        //    $sale->update(['paid' => true]);
-        //}
+        //Marcar ventas como pagadas
+        foreach ($pendingSales as $sale) {
+            $sale->update(['paid' => true]);
+        }
     
         return response()->json([
             'message' => 'Pago registrado correctamente',

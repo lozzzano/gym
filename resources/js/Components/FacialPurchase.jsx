@@ -113,7 +113,9 @@ export default function FacialPurchase() {
                 html: `
                     <p><strong>Membresía:</strong> ${cliente.membership?.membership_type?.name}</p>
                     <p><strong>Productos:</strong></p>
-                    <ul style="text-align:left">${carrito.map(p => `<li>${p.name} × ${p.quantity}</li>`).join("")}</ul>
+                    <ul style="text-align:left">
+                        ${carrito.map(p => `<li>${p.name} × ${p.quantity}</li>`).join("")}
+                    </ul>
                     <p class="mt-2"><strong>Total:</strong> $${total.toFixed(2)}</p>
                 `,
                 showCancelButton: true,

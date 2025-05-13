@@ -31,6 +31,10 @@ Route::get('/', function () {
     ]);
 });
 
+Route::get('/csrf-token', function () {
+    return response()->json(['token' => csrf_token()]);
+});
+
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -129,5 +133,22 @@ Route::prefix('api')->group(function () {
         Route::delete('/{id}', [PaymentController::class, 'destroy'])->middleware('auth');
     
     });
+
+    Route::get('/access-logs', function () {
+        return \App\Models\AccessLog::with([
+            'client.membership.membershipType'
+        ])
+        ->latest('access_time')
+        ->take(30)
+        ->get();
+    });
+
+    Route::get('/product-sales', function () {
+        return \App\Models\ProductSale::with('product', 'membership.client', 'membership.membershipType')
+            ->latest()
+            ->take(30)
+            ->get();
+    });    
+    
 });
 

@@ -181,10 +181,47 @@ class FaceRecognitionController extends Controller
         $data = $response->json();
 
         if (!isset($data['id'])) {
-            return response()->json(['mensaje' => 'Cliente no reconocido'], 404);
+            return response()->json([
+                'tipo' => 'denegado',
+                'mensaje' => 'Cliente no reconocido',
+                'name' => null,
+                'entrada' => null,
+                'salida' => null,
+                'tiempo' => null,
+                'alerta' => null
+            ], 404);
         }
 
-        $client = Client::find($data['id']);
+        $client = Client::with('membership')->find($data['id']);
+
+        if (!$client || $client->status !== 'active') {
+            return response()->json([
+                'tipo' => 'denegado',
+                'mensaje' => 'Cliente inactivo',
+                'name' => $client?->name,
+                'entrada' => null,
+                'salida' => null,
+                'tiempo' => null,
+                'alerta' => null
+            ], 403);
+        }
+
+        // Validar acceso por lógica de membresía y entradas
+        $status = $client->access_status;
+
+        if (!$status['allowed']) {
+            return response()->json([
+                'tipo' => 'denegado',
+                'mensaje' => $status['reason'],
+                'name' => $client->name,
+                'entrada' => null,
+                'salida' => null,
+                'tiempo' => null,
+                'alerta' => null
+            ], 403);
+        }
+
+        // Revisar si tiene entrada sin salida
         $access = AccessLog::where('client_id', $client->id)
             ->whereNull('checkout')
             ->latest('access_time')
@@ -210,7 +247,7 @@ class FaceRecognitionController extends Controller
             ]);
         }
 
-        // Si no tiene entrada activa
+        // Registrar nueva entrada
         AccessLog::create([
             'client_id' => $client->id,
             'status' => 'allowed',
@@ -222,8 +259,10 @@ class FaceRecognitionController extends Controller
             'tipo' => 'entrada',
             'mensaje' => 'Bienvenido',
             'name' => $client->name,
-            'entrada' => now()->format('H:i')
+            'entrada' => now()->format('H:i'),
+            'salida' => null,
+            'tiempo' => null,
+            'alerta' => null
         ]);
     }
-
 }

@@ -49,6 +49,7 @@ const FacialRegister = ({ onSuccess, setClients }) => {
 
       try {
         const response = await axios.post('/facial-register', formData);
+
         setMensaje(response.data.mensaje);
 
         const nuevoCliente = response.data.cliente;
@@ -70,7 +71,7 @@ const FacialRegister = ({ onSuccess, setClients }) => {
         // Apagar cámara y cerrar modal
         apagarCamara();
 
-        // 👇 Llama al callback si existe para cerrar modal
+        // Llama al callback si existe para cerrar modal
         if (onSuccess) onSuccess();
       } catch (error) {
         const errorMsg = error.response?.data?.error || "Ocurrió un error inesperado.";

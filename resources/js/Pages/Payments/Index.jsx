@@ -28,19 +28,65 @@ export default function Index() {
     const handleSubmit = async (data) => {
         try {
             await axios.post("/api/payments", data);
-            fetchPayments(); // recargar lista
+            fetchPayments();
+
+            Swal.fire({
+                icon: "success",
+                title: "Pago guardado",
+                text: "El pago se registró correctamente.",
+                timer: 2000,
+                showConfirmButton: false,
+                toast: true,
+                position: "top-end"
+            });
         } catch (error) {
             console.error("Error guardando pago:", error);
+
+            Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: "No se pudo guardar el pago.",
+                confirmButtonColor: "#e3342f"
+            });
         }
     };
 
     const handleDelete = async (payment) => {
-        if (!confirm(`¿Eliminar pago con ID ${payment.id}?`)) return;
+        const confirmacion = await Swal.fire({
+            title: `¿Eliminar pago ID ${payment.id}?`,
+            text: "Esta acción no se puede deshacer.",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#6c757d",
+            confirmButtonText: "Sí, eliminar",
+            cancelButtonText: "Cancelar"
+        });
+
+        if (!confirmacion.isConfirmed) return;
+
         try {
             await axios.delete(`/api/payments/${payment.id}`);
             fetchPayments();
+
+            Swal.fire({
+                icon: "success",
+                title: "Eliminado",
+                text: "El pago ha sido eliminado.",
+                timer: 2000,
+                showConfirmButton: false,
+                toast: true,
+                position: "top-end"
+            });
         } catch (error) {
             console.error("Error eliminando pago:", error);
+
+            Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: "No se pudo eliminar el pago.",
+                confirmButtonColor: "#e3342f"
+            });
         }
     };
 
